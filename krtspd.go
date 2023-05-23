@@ -509,11 +509,12 @@ func (rs *RtspServer) push(rc *RtspClient) {
 						break
 					}
 				}
-			}
-			_, e := v.s.conn.Write(d)
-			if e != nil {
-				removes[v.cid] = v.cid
-				removeFlag = true
+			} else {
+				_, e := v.s.conn.Write(d)
+				if e != nil {
+					removes[v.cid] = v.cid
+					removeFlag = true
+				}
 			}
 		}
 		rc.pullerLock.RUnlock()
